@@ -14,13 +14,13 @@ class Episode(db.Model):
         if self.episode_number < 10:
             ep_num_string = f'0{ep_num_string}'
 
-        return f'{seas_num_string}x{ep_num_string}'
+        return f'S{seas_num_string}xEP{ep_num_string}'
 
     def to_dict(self):
         return {
             'id': self.id,
             'episode': self.format_episode_code(),
             'first_aired': self.first_aired,
-            'director': self.first_aired.title(),
+            'director': self.director.title(),
             'episode_name': self.episode_name.title()
         }
