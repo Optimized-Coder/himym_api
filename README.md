@@ -27,7 +27,7 @@ This is a simple API, written with Flask and Python with information about my fa
 ---
 
 ## Endpoints:
----
+### GET
 http://localhost:5000/api/characters/
 
 > This will send a GET request to fetch a json object for all the characters
@@ -36,10 +36,6 @@ http://localhost:5000/api/characters/id/
 
 > This takes in a number and will return the json for the character with the id provided
 
-http://localhost:5000/api/characters/id/delete
-
-> This will send a DELETE request to the server to remove a character from the database
-
 http://localhost:5000/api/episodes/
 
 > This will send a GET request to fetch a json object for all the episodes
@@ -47,6 +43,12 @@ http://localhost:5000/api/episodes/
 http://localhost:5000/api/episodes/id/
 
 > This takes in a number and will return the json for the episode with the id provided
+
+### Delete
+
+http://localhost:5000/api/characters/id/delete
+
+> This will send a DELETE request to the server to remove a character from the database
 
 http://localhost:5000/api/characters/id/delete
 
