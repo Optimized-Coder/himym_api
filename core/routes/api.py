@@ -4,7 +4,8 @@ from ..extensions import db
 
 import datetime
 
-api = Blueprint('api', __name__)
+characters = Blueprint('characters', __name__)
+episodes = Blueprint('episodes', __name__)
 
 '''
 ******
@@ -12,13 +13,13 @@ CHARACTER ROUTES
 ******
 '''
 # GET CHARACTERS
-@api.route('/characters/', methods=['GET'])
+@characters.route('/', methods=['GET'])
 def get_characters():
     characters = Character.query.all()
     return jsonify([character.to_dict()\
                      for character in characters])
 
-@api.route('/characters/<int:id>', methods=['GET'])
+@characters.route('/<int:id>', methods=['GET'])
 def get_character(id):
     character = Character.query.\
         filter_by(id=id).first()
@@ -29,7 +30,7 @@ def get_character(id):
         return jsonify(character.to_dict())
     
 # add characters
-@api.route('/characters/add', methods=['GET', 'POST'])
+@characters.route('/add', methods=['GET', 'POST'])
 def add_character():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -61,7 +62,7 @@ def add_character():
         'add_character.html'
     )
 # DELETE CHARACTERS
-@api.route('characters/<int:id>/delete/')
+@characters.route('/<int:id>/delete/')
 def delete_character(id):
     character = Character.query\
     .filter_by(id=id).first()
@@ -80,13 +81,13 @@ EPISODE ROUTES
 ******
 '''
 # GET EPISODES
-@api.route('/episodes/', methods=['GET'])
+@episodes.route('/', methods=['GET'])
 def get_episodes():
     episodes = Episode.query.all()
     return jsonify([episode.to_dict()\
                     for episode in episodes])
 
-@api.route('/episodes/<int:id>', methods=['GET'])
+@episodes.route('/<int:id>', methods=['GET'])
 def get_episode(id):
     episode = Episode.query.\
      filter_by(id=id).first()
@@ -97,7 +98,7 @@ def get_episode(id):
         return jsonify(episode.to_dict())
 
 # ADD EPISODES
-@api.route('/episodes/add/', methods=['GET', 'POST'])
+@episodes.route('/add/', methods=['GET', 'POST'])
 def add_episode():
     if request.method == 'POST':
         season_number = request.form.get('season_number')
@@ -129,7 +130,7 @@ def add_episode():
     )
 
 # DELETE EPISODE
-@api.route('/episodes/<int:id>/delete/')
+@episodes.route('/<int:id>/delete/')
 def delete_episode(id):
     episode = Episode.query.filter_by(id=id).first()
     episode_exists = bool(episode)

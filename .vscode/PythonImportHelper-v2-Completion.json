@@ -162,7 +162,7 @@
         "kind": 2,
         "importPath": "core.routes.api",
         "description": "core.routes.api",
-        "peekOfCode": "def get_characters():\n    characters = Character.query.all()\n    return jsonify([character.to_dict()\\\n                     for character in characters])\n@api.route('/characters/<int:id>', methods=['GET'])\ndef get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:",
+        "peekOfCode": "def get_characters():\n    characters = Character.query.all()\n    return jsonify([character.to_dict()\\\n                     for character in characters])\n@characters.route('/<int:id>', methods=['GET'])\ndef get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:",
         "detail": "core.routes.api",
         "documentation": {}
     },
@@ -171,7 +171,7 @@
         "kind": 2,
         "importPath": "core.routes.api",
         "description": "core.routes.api",
-        "peekOfCode": "def get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(character.to_dict())\n# add characters\n@api.route('/characters/add', methods=['GET', 'POST'])",
+        "peekOfCode": "def get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(character.to_dict())\n# add characters\n@characters.route('/add', methods=['GET', 'POST'])",
         "detail": "core.routes.api",
         "documentation": {}
     },
@@ -198,7 +198,7 @@
         "kind": 2,
         "importPath": "core.routes.api",
         "description": "core.routes.api",
-        "peekOfCode": "def get_episodes():\n    episodes = Episode.query.all()\n    return jsonify([episode.to_dict()\\\n                    for episode in episodes])\n@api.route('/episodes/<int:id>', methods=['GET'])\ndef get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:",
+        "peekOfCode": "def get_episodes():\n    episodes = Episode.query.all()\n    return jsonify([episode.to_dict()\\\n                    for episode in episodes])\n@episodes.route('/<int:id>', methods=['GET'])\ndef get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:",
         "detail": "core.routes.api",
         "documentation": {}
     },
@@ -207,7 +207,7 @@
         "kind": 2,
         "importPath": "core.routes.api",
         "description": "core.routes.api",
-        "peekOfCode": "def get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(episode.to_dict())\n# ADD EPISODES\n@api.route('/episodes/add/', methods=['GET', 'POST'])",
+        "peekOfCode": "def get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(episode.to_dict())\n# ADD EPISODES\n@episodes.route('/add/', methods=['GET', 'POST'])",
         "detail": "core.routes.api",
         "documentation": {}
     },
@@ -230,11 +230,20 @@
         "documentation": {}
     },
     {
-        "label": "api",
+        "label": "characters",
         "kind": 5,
         "importPath": "core.routes.api",
         "description": "core.routes.api",
-        "peekOfCode": "api = Blueprint('api', __name__)\n'''\n******\nCHARACTER ROUTES\n******\n'''\n# GET CHARACTERS\n@api.route('/characters/', methods=['GET'])\ndef get_characters():\n    characters = Character.query.all()",
+        "peekOfCode": "characters = Blueprint('characters', __name__)\nepisodes = Blueprint('episodes', __name__)\n'''\n******\nCHARACTER ROUTES\n******\n'''\n# GET CHARACTERS\n@characters.route('/', methods=['GET'])\ndef get_characters():",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "episodes",
+        "kind": 5,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "episodes = Blueprint('episodes', __name__)\n'''\n******\nCHARACTER ROUTES\n******\n'''\n# GET CHARACTERS\n@characters.route('/', methods=['GET'])\ndef get_characters():\n    characters = Character.query.all()",
         "detail": "core.routes.api",
         "documentation": {}
     },
@@ -344,6 +353,42 @@
         "description": "tests.conftest",
         "peekOfCode": "def client(app):\n    return app.test_client()",
         "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "test_characters",
+        "kind": 2,
+        "importPath": "tests.test_project",
+        "description": "tests.test_project",
+        "peekOfCode": "def test_characters(client):\n    response = client.get('/api/characters/')\n    assert response.status_code == 200\ndef test_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''",
+        "detail": "tests.test_project",
+        "documentation": {}
+    },
+    {
+        "label": "test_character",
+        "kind": 2,
+        "importPath": "tests.test_project",
+        "description": "tests.test_project",
+        "peekOfCode": "def test_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''\ndef test_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200",
+        "detail": "tests.test_project",
+        "documentation": {}
+    },
+    {
+        "label": "test_episodes",
+        "kind": 2,
+        "importPath": "tests.test_project",
+        "description": "tests.test_project",
+        "peekOfCode": "def test_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200\ndef test_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
+        "detail": "tests.test_project",
+        "documentation": {}
+    },
+    {
+        "label": "test_episode",
+        "kind": 2,
+        "importPath": "tests.test_project",
+        "description": "tests.test_project",
+        "peekOfCode": "def test_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
+        "detail": "tests.test_project",
         "documentation": {}
     }
 ]

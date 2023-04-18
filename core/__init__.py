@@ -24,8 +24,12 @@ def create_app():
     from .models import Character, Episode, Quote
 
     # routes
-    from .routes.api import api as api_bp
-    app.register_blueprint(api_bp, url_prefix='/api')
+    from .routes.api import characters as characters_bp
+    app.register_blueprint(characters_bp,\
+                            url_prefix='/api/characters')
+    from .routes.api import episodes as episodes_bp
+    app.register_blueprint(episodes_bp,\
+                            url_prefix='/api/episodes')
 
 
     return app
