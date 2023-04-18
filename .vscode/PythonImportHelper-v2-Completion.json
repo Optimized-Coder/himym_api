@@ -356,38 +356,38 @@
         "documentation": {}
     },
     {
-        "label": "test_characters",
+        "label": "test_get_characters",
         "kind": 2,
         "importPath": "tests.test_project",
         "description": "tests.test_project",
-        "peekOfCode": "def test_characters(client):\n    response = client.get('/api/characters/')\n    assert response.status_code == 200\ndef test_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''",
+        "peekOfCode": "def test_get_characters(client):\n    response = client.get('/api/characters/')\n    assert response.status_code == 200\ndef test_get_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''",
         "detail": "tests.test_project",
         "documentation": {}
     },
     {
-        "label": "test_character",
+        "label": "test_get_character",
         "kind": 2,
         "importPath": "tests.test_project",
         "description": "tests.test_project",
-        "peekOfCode": "def test_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''\ndef test_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200",
+        "peekOfCode": "def test_get_character(client):\n    response = client.get('api/characters/1')\n    assert response.status_code == 200\n'''\nEpisode route tests\n.../api/episodes/\n'''\ndef test_get_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200",
         "detail": "tests.test_project",
         "documentation": {}
     },
     {
-        "label": "test_episodes",
+        "label": "test_get_episodes",
         "kind": 2,
         "importPath": "tests.test_project",
         "description": "tests.test_project",
-        "peekOfCode": "def test_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200\ndef test_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
+        "peekOfCode": "def test_get_episodes(client):\n    response = client.get('/api/episodes/')\n    assert response.status_code == 200\ndef test_get_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
         "detail": "tests.test_project",
         "documentation": {}
     },
     {
-        "label": "test_episode",
+        "label": "test_get_episode",
         "kind": 2,
         "importPath": "tests.test_project",
         "description": "tests.test_project",
-        "peekOfCode": "def test_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
+        "peekOfCode": "def test_get_episode(client):\n    response = client.get('api/episodes/1')\n    assert response.status_code == 200",
         "detail": "tests.test_project",
         "documentation": {}
     }
