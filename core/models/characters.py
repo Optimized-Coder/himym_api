@@ -8,8 +8,11 @@ class Character(db.Model):
     home_town = db.Column(db.String(120))
     date_of_birth = db.Column(db.Date)
     occupation = db.Column(db.String(80))
-    # romances = db.relationship()
+    quotes = db.relationship('Quote', backref='character')
 
+    def __repr__(self):
+        return f'{self.name}'
+    
     def to_dict(self):
         return {
             'id': self.id,
@@ -18,5 +21,5 @@ class Character(db.Model):
             'portrayed_by': self.portrayed_by,
             'home_town': self.home_town,
             'DoB': self.date_of_birth,
-            'occupation': self.occupation
+            'occupation': self.occupation,
         }

@@ -1,0 +1,349 @@
+[
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "current_app",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Migrate",
+        "importPath": "flask_migrate",
+        "description": "flask_migrate",
+        "isExtraImport": true,
+        "detail": "flask_migrate",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "core",
+        "description": "core",
+        "isExtraImport": true,
+        "detail": "core",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "importPath": "core",
+        "description": "core",
+        "isExtraImport": true,
+        "detail": "core",
+        "documentation": {}
+    },
+    {
+        "label": "Character",
+        "kind": 6,
+        "importPath": "core.models.characters",
+        "description": "core.models.characters",
+        "peekOfCode": "class Character(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(120))\n    full_name = db.Column(db.String(120))\n    portrayed_by = db.Column(db.String(120))\n    home_town = db.Column(db.String(120))\n    date_of_birth = db.Column(db.Date)\n    occupation = db.Column(db.String(80))\n    quotes = db.relationship('Quote', backref='character')\n    def __repr__(self):",
+        "detail": "core.models.characters",
+        "documentation": {}
+    },
+    {
+        "label": "Episode",
+        "kind": 6,
+        "importPath": "core.models.episodes",
+        "description": "core.models.episodes",
+        "peekOfCode": "class Episode(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    season_number = db.Column(db.Integer)\n    episode_number = db.Column(db.Integer)\n    first_aired = db.Column(db.Date)\n    director = db.Column(db.String(80))\n    episode_name = db.Column(db.String(80))\n    def format_episode_code(self):\n        ep_num_string = str(self.episode_number)\n        seas_num_string = str(self.season_number)",
+        "detail": "core.models.episodes",
+        "documentation": {}
+    },
+    {
+        "label": "Quote",
+        "kind": 6,
+        "importPath": "core.models.quotes",
+        "description": "core.models.quotes",
+        "peekOfCode": "class Quote(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    content = db.Column(db.Text)\n    author_id = db.Column(db.Integer, \\\n                          db.ForeignKey('character.id'))",
+        "detail": "core.models.quotes",
+        "documentation": {}
+    },
+    {
+        "label": "get_characters",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_characters():\n    characters = Character.query.all()\n    return jsonify([character.to_dict()\\\n                     for character in characters])\n@api.route('/characters/<int:id>', methods=['GET'])\ndef get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_character",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_character(id):\n    character = Character.query.\\\n        filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(character.to_dict())\n# add characters\n@api.route('/characters/add', methods=['GET', 'POST'])",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "add_character",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def add_character():\n    if request.method == 'POST':\n        name = request.form.get('name')\n        full_name = request.form.get('full_name')\n        portrayed_by = request.form.get('portrayed_by')\n        home_town = request.form.get('home_town')\n        form_dob = request.form.get('dob')\n        occupation = request.form.get('occupation')\n        dob = datetime.datetime.strptime(\n           form_dob,",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "delete_character",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def delete_character(id):\n    character = Character.query\\\n    .filter_by(id=id).first()\n    character_exists = bool(character)\n    if not character_exists:\n        return redirect(url_for('not_found'))\n    else:\n        db.session.delete(character)\n        db.session.commit()\n        return redirect(url_for('api.get_characters'))",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_episodes",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_episodes():\n    episodes = Episode.query.all()\n    return jsonify([episode.to_dict()\\\n                    for episode in episodes])\n@api.route('/episodes/<int:id>', methods=['GET'])\ndef get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "get_episode",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def get_episode(id):\n    episode = Episode.query.\\\n     filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:\n        return redirect(url_for('not_found'))\n    else:\n        return jsonify(episode.to_dict())\n# ADD EPISODES\n@api.route('/episodes/add/', methods=['GET', 'POST'])",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "add_episode",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def add_episode():\n    if request.method == 'POST':\n        season_number = request.form.get('season_number')\n        episode_number = request.form.get('episode_number')\n        form_first_aired = request.form.get('first_aired')\n        director = request.form.get('director')\n        episode_name = request.form.get('episode_name')\n        first_aired = datetime.datetime.strptime(\n           form_first_aired,\n            \"%Y-%m-%d\"",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "delete_episode",
+        "kind": 2,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "def delete_episode(id):\n    episode = Episode.query.filter_by(id=id).first()\n    episode_exists = bool(episode)\n    if not episode_exists:\n        return redirect(url_for('not_found'))\n    else:\n        db.session.delete(episode)\n        db.session.commit()\n        return redirect(url_for('api.get_episodes'))",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "api",
+        "kind": 5,
+        "importPath": "core.routes.api",
+        "description": "core.routes.api",
+        "peekOfCode": "api = Blueprint('api', __name__)\n'''\n******\nCHARACTER ROUTES\n******\n'''\n# GET CHARACTERS\n@api.route('/characters/', methods=['GET'])\ndef get_characters():\n    characters = Character.query.all()",
+        "detail": "core.routes.api",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "core.extensions",
+        "description": "core.extensions",
+        "peekOfCode": "db = SQLAlchemy()\nmigrate = Migrate()",
+        "detail": "core.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "migrate",
+        "kind": 5,
+        "importPath": "core.extensions",
+        "description": "core.extensions",
+        "peekOfCode": "migrate = Migrate()",
+        "detail": "core.extensions",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_engine_url",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_engine_url():\n    try:\n        return get_engine().url.render_as_string(hide_password=False).replace(\n            '%', '%%')\n    except AttributeError:\n        return str(get_engine().url).replace('%', '%%')\n# add your model's MetaData object here\n# for 'autogenerate' support\n# from myapp import mymodel\n# target_metadata = mymodel.Base.metadata",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "get_metadata",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_offline():\n    \"\"\"Run migrations in 'offline' mode.\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n    Calls to context.execute() here emit the given string to the\n    script output.\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "def run_migrations_online():\n    \"\"\"Run migrations in 'online' mode.\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n    \"\"\"\n    # this callback is used to prevent an auto-migration from being generated\n    # when there are no changes to the schema\n    # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html\n    def process_revision_directives(context, revision, directives):\n        if getattr(config.cmd_opts, 'autogenerate', False):",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "config = context.config\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nfileConfig(config.config_file_name)\nlogger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "logger = logging.getLogger('alembic.env')\ndef get_engine():\n    try:\n        # this works with Flask-SQLAlchemy<3 and Alchemical\n        return current_app.extensions['migrate'].db.get_engine()\n    except TypeError:\n        # this works with Flask-SQLAlchemy>=3\n        return current_app.extensions['migrate'].db.engine\ndef get_engine_url():\n    try:",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_db",
+        "kind": 5,
+        "importPath": "migrations.env",
+        "description": "migrations.env",
+        "peekOfCode": "target_db = current_app.extensions['migrate'].db\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\ndef get_metadata():\n    if hasattr(target_db, 'metadatas'):\n        return target_db.metadatas[None]\n    return target_db.metadata\ndef run_migrations_offline():",
+        "detail": "migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 2,
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "peekOfCode": "def app():\n    app = create_app()\n    app.config.update({\n        'TESTING': True,\n    })\n    yield app\n@pytest.fixture()\ndef client(app):\n    return app.test_client()",
+        "detail": "tests.conftest",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 2,
+        "importPath": "tests.conftest",
+        "description": "tests.conftest",
+        "peekOfCode": "def client(app):\n    return app.test_client()",
+        "detail": "tests.conftest",
+        "documentation": {}
+    }
+]
